@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OSCA Registration Website
 
-## Getting Started
+A Simple registration portal built for the OSCA (Open Source Community Annaba) community. This application allows users to register by providing their personal details, academic year, and skills, with data automatically stored in a Google Sheet.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Real-time Feedback**: Instant form validation and submission status updates.
+- **Google Sheets Integration**: Seamlessly saves registration data to a Google Spreadsheet using a Service Account.
+- **Tech Stack**: Powered by Next.js 16, React 19, and Tailwind CSS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Framework**: [Next.js 16](https://nextjs.org/)
+- **Library**: [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Backend Integration**: [Google Sheets API](https://developers.google.com/sheets/api)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Getting Started
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js installed on your machine.
+- A Google Cloud Platform project with the Sheets API enabled.
+- A Service Account with access to your target Google Sheet.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd registrationwebsite
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Setup:**
+   Create a `.env.local` file in the root directory and add your Google Sheets credentials:
+   ```env
+   GOOGLE_SERVICE_ACCOUNT_EMAIL=your-service-account-email
+   GOOGLE_PRIVATE_KEY="your-private-key"
+   GOOGLE_SHEET_ID=your-spreadsheet-id
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open the application:**
+   Visit [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📂 Project Structure
+
+- `src/app/page.js`: The main registration form component.
+- `src/app/api/submit/route.js`: API route handling form submissions to Google Sheets.
+- `public/`: Static assets like images and icons.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

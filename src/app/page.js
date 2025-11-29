@@ -96,13 +96,14 @@ export default function Registration() {
         {/* Header */}
         <div className="relative z-10 mb-12">
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center border border-zinc-700">
+            <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center border border-zinc-700 ">
               <Image 
-                src="/globe.svg" 
+              
+                src="/logo.png" 
                 alt="OSCA Logo" 
-                width={24} 
-                height={24} 
-                className="invert opacity-80"
+                width={40} 
+                height={40} 
+                className="invert opacity-80 rounded-full"
               />
             </div>
             <div>

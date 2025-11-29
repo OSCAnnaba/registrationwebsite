@@ -28,14 +28,13 @@ export async function POST(req) {
 
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
-    // 1. Get the sheet name dynamically (in case it's not "Sheet1")
     const metadata = await sheets.spreadsheets.get({
       spreadsheetId,
     });
     
     const sheetName = metadata.data.sheets[0].properties.title;
 
-    // 2. Append to the correct sheet
+    
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: `${sheetName}!A:F`, 

@@ -4,10 +4,22 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { fullName, telegram, year, skills, comment } = body;
+    const {
+      fullName,
+      email,
+      studentId,
+      telegram,
+      clubExperience,
+      year,
+      skills,
+      additionalSkills,
+      interests,
+      motivation,
+      comment,
+    } = body;
 
     // Basic validation
-    if (!fullName || !telegram || !year) {
+    if (!fullName || !email || !studentId || !telegram || !clubExperience || !year) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -37,16 +49,22 @@ export async function POST(req) {
     
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: `${sheetName}!A:F`, 
+      range: `${sheetName}!A:L`, 
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [
           [
             new Date().toISOString(), // Timestamp
             fullName,
+            email,
+            studentId,
             telegram,
+            clubExperience,
             year,
             skills,
+            additionalSkills,
+            interests,
+            motivation,
             comment
           ]
         ],

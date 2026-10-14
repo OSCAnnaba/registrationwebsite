@@ -26,7 +26,11 @@ export async function POST(req) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+    let spreadsheetId = process.env.GOOGLE_SHEET_ID;
+    if (spreadsheetId && spreadsheetId.includes('/d/')) {
+      const match = spreadsheetId.match(/\/d\/([a-zA-Z0-9-_]+)/);
+      if (match) spreadsheetId = match[1];
+    }
 
     const metadata = await sheets.spreadsheets.get({
       spreadsheetId,
@@ -34,26 +38,33 @@ export async function POST(req) {
     
     const sheetName = metadata.data.sheets[0].properties.title;
 
-    
-    const response = await sheets.spreadsheets.values.append({
+    // Determine the next empty row based on Column A (Timestamp is always present)
+    const colA = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: `${sheetName}!A:F`, 
+      range: `${sheetName}!A:A`,
+    });
+
+    const nextRow = (colA.data.values ? colA.data.values.length : 0) + 1;
+    
+    const response = await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${sheetName}!A${nextRow}:F${nextRow}`, 
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [
           [
             new Date().toISOString(), // Timestamp
-            fullName,
-            telegram,
-            year,
-            skills,
-            comment
+            fullName || '',
+            telegram || '',
+            year || '',
+            skills || '',
+            comment || ''
           ]
         ],
       },
     });
 
-    return NextResponse.json({ success: true, data: response.data });
+    return NextResponse.json({ success: true, data: response.data, row: nextRow });
 
   } catch (error) {
     console.error('Google Sheets API Error:', error);
